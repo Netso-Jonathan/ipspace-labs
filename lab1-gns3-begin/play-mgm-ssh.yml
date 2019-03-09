@@ -1,0 +1,15 @@
+---
+- name: test login to Arista
+  hosts: arista
+  gather_facts: false
+  connection: local
+  tasks:
+    - telnet:
+        user: admin
+        login_prompt: "localhost login:"
+        prompts:
+          - "[>|#]"
+        command:
+          - term length 0
+          - configure terminal
+          - hostname test01
