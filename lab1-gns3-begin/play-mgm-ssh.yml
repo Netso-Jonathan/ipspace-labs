@@ -14,6 +14,6 @@
           - term length 0
           - enable
           - configure terminal
-          - hostname test04
+          - hostname {{inventory_hostname}}
           - end
           - zerotouch disable
