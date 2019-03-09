@@ -6,7 +6,7 @@
   tasks:
     - telnet:
         user: admin
-        port: {{hostvars.console_port}}
+        port: "{{console_port}}"
         login_prompt: "localhost login:"
         prompts:
           - "[>|#]"
