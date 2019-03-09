@@ -14,6 +14,6 @@
           - term length 0
           - enable
           - configure terminal
-          - hostname test02
+          - hostname test04
           - end
           - zerotouch disable

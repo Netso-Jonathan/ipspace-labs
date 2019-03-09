@@ -1,0 +1,7 @@
+---
+- name: debug vars
+  hosts: arista
+  gather_facts: false
+  connection: local
+  tasks:
+    - debug: var=vars
