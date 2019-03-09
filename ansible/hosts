@@ -1,5 +1,16 @@
 [arista]
-isp1 ansible_host=10.0.8.10 console_port=5000
+isp1 console_port=5000
+
+[juniper]
+
+[gns3server1]
+isp1
+
+[gns3server2]
+C1-BR01-FW01
+
+[gns3server2:vars]
+console_ip=10.0.8.11
 
 [all:vars]
-consol_ip=10.0.8.10
+console_ip=10.0.8.10
