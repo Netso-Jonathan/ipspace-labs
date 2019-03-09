@@ -6,10 +6,14 @@
   tasks:
     - telnet:
         user: admin
+        port: 5000
         login_prompt: "localhost login:"
         prompts:
           - "[>|#]"
         command:
           - term length 0
+          - enable
           - configure terminal
-          - hostname test01
+          - hostname test02
+          - end
+          - zerotouch disable

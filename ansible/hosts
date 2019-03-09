@@ -1,5 +1,5 @@
 [arista]
-isp1 consol_port=5000
+isp1 ansible_host=10.0.8.10 console_port=5000
 
 [all:vars]
 consol_ip=10.0.8.10
