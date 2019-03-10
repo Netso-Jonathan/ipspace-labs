@@ -4,6 +4,16 @@
   gather_facts: false
   connection: local
   tasks:
+    - name: Disabling zero touch provisionning
+      telnet:
+        user: admin
+        host: "{{console_ip}}"
+        port: "{{console_port}}"
+        login_prompt: "localhost login:"
+        prompts:
+          - "[>|#]"
+        command:
+          - zerotouch disable
     - telnet:
         user: admin
         host: "{{console_ip}}"
@@ -16,5 +26,34 @@
           - enable
           - configure terminal
           - hostname {{inventory_hostname}}
+          - vrf definition management
+          - exit
+          - interface management1
+          - ip address {{mgm_ip}}
+          - ip route vrf management 0.0.0.0/0 {{mgm_gtw}}
+          - username admin1 privilege 15 secret sha512 $6$uN4V479sqR.x9yFK$Cjo3dFIjRdDYp/awXKlLy7TyNkCA3rVzpIisy/qVjqrZWgs33ahcSdXXAHy10bCSzd3XL6BdBgid7Vq9HiHC51
           - end
-          - zerotouch disable
+          - write memory
+          - exit
+
+#- name: configure management ip on Juniper
+#  host: juniper
+#  gather_facts: false
+#  connection: local
+#  task:
+#    - telnet:
+#      user: root
+#      host: "{{console_ip}}"
+#      port: "{{console_port}}"
+#      login_prompt: "login:"
+#      prompts:
+#        - "[>|#|%|:]"
+#      commands:
+#        - cli
+#        - configure
+#        - set system root-authentication encrypted-password "$5$gwBeH6hh$bHNKESyz3Yt/hu91xrXnEkMGl8yo2qzgERPxGmYDod6"
+#        - set system host-name {{inventory_hostname}}
+#        #- set interfaces fxp0 unit 0 family inet address {{}}
+#        - commit and-quit
+#        - exit
+#        - exit

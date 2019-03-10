@@ -1,8 +1,9 @@
 [arista]
-isp1 console_port=5000
+isp1 console_port=5000 mgm_ip=10.0.8.100
+#C1-DC1-R1 console_port=5002 
 
 [juniper]
-
+C1-DC1-FW01 console_port=5017
 [gns3server1]
 isp1
 
@@ -14,3 +15,4 @@ console_ip=10.0.8.11
 
 [all:vars]
 console_ip=10.0.8.10
+mgm_gtw=10.0.8.1
