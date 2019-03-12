@@ -1,0 +1,60 @@
+---
+- name: Get infro from gns3 api
+  hosts: localhost
+  gather_facts: false
+  vars:
+    host_dict: {}
+#  vars_prompt:
+#    - name: "password"
+#      prompt: "password: "
+#      privates: yes
+  tasks:
+    - name: Call GNS3 REST API 
+      uri:
+        url: http://10.0.8.10:3080/v2/projects/a08ea215-6343-4bd9-b81d-ffe7963dc7f1/nodes
+        user: jonathan
+        password: 1J0uriftpn!! # "{{password}}"
+        headers:
+          content-type: 'application/json'
+        return_content: yes
+        body_format: json
+      register: gns3_output
+    - set_fact: 
+        gns3_output_json: "{{ gns3_output['content'] }}"
+
+
+#    - name: Debug gns3_ouptut content
+#      debug: var=gns3_output['content']
+
+    - name: filtering network device
+      debug: 
+        msg: "device name: {{ device_info['name'] }}"
+      loop: "{{ gns3_output['content'] }}"
+      loop_control:
+        loop_var: device_info
+        label: "{{ device_info['name'] }}"
+#      when: "{{ device_info['properties']['hda_disk_image'] }} is defined"
+      register: gns3_devices
+
+    - name: Write my fist inventory with jinja2
+      template:
+          src: ./gns3_inventory.j2
+          dest: ./lab_host
+#    - name: printing Arista Device
+#      debug:
+#        msg: "Device Name:i {{ arista_info['device_info']['name'] }}"
+#      loop: "{{ gns3_devices['results'] }}"
+#      loop_control:
+#        loop_var: arista_info
+#        label: "{{ arista_info['device_info']['name'] }}"
+#      when: "{{ arista_info['device_info']['properties']['hda_disk_image'] }} = "
+
+#        msg: "{{ item.name }}"
+#      when: item.properties is defined
+#      with_items: "{{gns3_output | map('from_json') | list }}"
+#    - name: test add list
+#      set_fact: 
+#        router1:
+#          name: router1
+#          id: 1
+#        host_list: "{{ host_dict + {{router1}} }}"

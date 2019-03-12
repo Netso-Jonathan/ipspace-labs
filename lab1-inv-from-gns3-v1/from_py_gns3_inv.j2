@@ -1,0 +1,29 @@
+{# 
+Generating an Ansible Inventory from the GNS3 API output 
+#}
+{% macro host_info(name,count,console_ip,console_port) %}
+        {{name}}
+         ansible_host={{ "10.0.8.%s"|format(count.0)}}
+         console_ip={{console_ip}}
+         console_port={{console_port}}
+{% endmacro %}
+---
+{% set count = [99] %}
+all:
+  children:
+    arista:
+{% for node in config %}
+  {%- if 'vEOS' in node.properties.hda_disk_image %}
+  {%- if count.append(count.pop() + 1) %}{% endif %}{#ugly method to count only matches..-#}
+       {{host_info(node.name,count,node.console_host,node.console)}}
+  {% endif %}
+{% endfor %}
+    junos:
+{% for node in config %}
+  {%- if 'vsrx' in node.properties.hda_disk_image -%}
+  {%- if count.append(count.pop() + 1) %}{% endif %}{#ugly method to count only matches.. -#}
+       {{host_info(node.name,count,node.console_host,node.console)}}
+  {%- endif %}
+{% endfor %}  
+  vars:
+    gw: 10.0.8.1
