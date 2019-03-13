@@ -9,7 +9,7 @@ password = getpass.getpass(prompt="Password:")
 res = requests.get('http://10.0.8.10:3080/v2/projects/a08ea215-6343-4bd9-b81d-ffe7963dc7f1/nodes', auth=('jonathan', password))
 a = res.json()
 
-template_config = env.get_template('gns3_inv.j2')
+template_config = env.get_template('gns3_inv_v2.j2')
 
 render_1 = template_config.render(config = a)
 

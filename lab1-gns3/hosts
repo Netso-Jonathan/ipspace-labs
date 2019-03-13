@@ -1,85 +1,24 @@
 ---
-all:
-  children:
-    arista:
-        C1-DC1-R1
-         ansible_host=10.0.8.100
-         console_ip=10.0.8.10
-         console_port=5002
+[arista]
+C1-DC1-R1 ansible_host=10.0.8.100 console_ip=10.0.8.10 console_port=5002
+C1-DC1-R2 ansible_host=10.0.8.101 console_ip=10.0.8.10 console_port=5006
+C1-DC2-R1 ansible_host=10.0.8.102 console_ip=10.0.8.10 console_port=5012
+C1-DC2-R2 ansible_host=10.0.8.103 console_ip=10.0.8.10 console_port=5014
+C1-DC1-R3 ansible_host=10.0.8.104 console_ip=10.0.8.10 console_port=5021
+C1-DC2-R3 ansible_host=10.0.8.105 console_ip=10.0.8.10 console_port=5026
+C1-BR-R1 ansible_host=10.0.8.106 console_ip=10.0.8.10 console_port=5030
+C1-BR-R2 ansible_host=10.0.8.107 console_ip=10.0.8.10 console_port=5040
+ISP1 ansible_host=10.0.8.108 console_ip=10.0.8.10 console_port=5035
 
-        C1-DC1-R2
-         ansible_host=10.0.8.101
-         console_ip=10.0.8.10
-         console_port=5006
-
-        C1-DC2-R1
-         ansible_host=10.0.8.102
-         console_ip=10.0.8.10
-         console_port=5012
-
-        C1-DC2-R2
-         ansible_host=10.0.8.103
-         console_ip=10.0.8.10
-         console_port=5014
-
-        C1-DC1-R3
-         ansible_host=10.0.8.104
-         console_ip=10.0.8.10
-         console_port=5021
-
-        C1-DC2-R3
-         ansible_host=10.0.8.105
-         console_ip=10.0.8.10
-         console_port=5026
-
-        C1-BR-R1
-         ansible_host=10.0.8.106
-         console_ip=10.0.8.10
-         console_port=5030
-
-        C1-BR-R2
-         ansible_host=10.0.8.107
-         console_ip=10.0.8.10
-         console_port=5040
-
-        ISP1
-         ansible_host=10.0.8.108
-         console_ip=10.0.8.10
-         console_port=5035
-
-    junos:
-        C1-DC1-FW01
-         ansible_host=10.0.8.109
-         console_ip=10.0.8.10
-         console_port=5017
-        C1-DC1-FW02
-         ansible_host=10.0.8.110
-         console_ip=10.0.8.10
-         console_port=5019
-        C1-DC2-FW01
-         ansible_host=10.0.8.111
-         console_ip=10.0.8.10
-         console_port=5022
-        C1-DC2-FW02
-         ansible_host=10.0.8.112
-         console_ip=10.0.8.10
-         console_port=5024
-        C1-BR01-FW01
-         ansible_host=10.0.8.113
-         console_ip=10.0.8.10
-         console_port=5032
-        C1-BR02-FW1
-         ansible_host=10.0.8.114
-         console_ip=10.0.8.11
-         console_port=5002
-        C1-BR03-FW01
-         ansible_host=10.0.8.115
-         console_ip=10.0.8.11
-         console_port=5001
-        C1-BR04-FW01
-         ansible_host=10.0.8.116
-         console_ip=10.0.8.11
-         console_port=5004
+[junos]
+C1-DC1-FW01 ansible_host=10.0.8.109 console_ip=10.0.8.10 console_port=5017
+C1-DC1-FW02 ansible_host=10.0.8.110 console_ip=10.0.8.10 console_port=5019
+C1-DC2-FW01 ansible_host=10.0.8.111 console_ip=10.0.8.10 console_port=5022
+C1-DC2-FW02 ansible_host=10.0.8.112 console_ip=10.0.8.10 console_port=5024
+C1-BR01-FW01 ansible_host=10.0.8.113 console_ip=10.0.8.10 console_port=5032
+C1-BR02-FW1 ansible_host=10.0.8.114 console_ip=10.0.8.11 console_port=5002
+C1-BR03-FW01 ansible_host=10.0.8.115 console_ip=10.0.8.11 console_port=5001
+C1-BR04-FW01 ansible_host=10.0.8.116 console_ip=10.0.8.11 console_port=5004
   
-  vars:
-    gw: 10.0.8.1
+[all:vars]
+gtw=10.0.8.1
