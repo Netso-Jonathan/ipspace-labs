@@ -8,7 +8,7 @@
         user: admin
         host: "{{console_ip}}"
         port: "{{console_port}}"
-        login_prompt: "localhost login:"
+        login_prompt: ""
         prompts:
           - "[>|#|login:]"
         command:
@@ -16,12 +16,9 @@
           - enable
           - configure terminal
           - hostname {{inventory_hostname}}
-          - vrf definition management
-          - exit
           - interface management1
-          - vrf forwarding management
           - ip address {{ansible_host}}/24
-          - ip route vrf management 0.0.0.0/0 {{gtw}}
+          - ip route 0.0.0.0/0 {{gtw}}
           - username ansible privilege 15 secret sha512 $6$MuHyC/Jz0MqZC1p9$rSi66zNYhQvQ6B3gkjPTbb6A3eudoE.sUntdbw3AQEXCtwf7oy2GXMze1GjGMaj9/3sSenj.9FLcfRH60PVPN/
           - end
           - write memory
