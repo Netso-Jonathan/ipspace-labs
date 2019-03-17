@@ -21,5 +21,14 @@ Generating an Ansible Inventory from the GNS3 API output
 {{host_info(node.name,count,node.console_host,node.console)}}
   {%- endif %}
 {% endfor %}  
+
+[arista:vars]
+ansible_network_os=eos
+
+[junos:vars]
+ansible_network_os=junos
+ansible_command_timeout=30
+ansible_connect_timeout=60
+
 [all:vars]
 gtw=10.0.8.1

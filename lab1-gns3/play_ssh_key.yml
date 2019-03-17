@@ -1,0 +1,31 @@
+---
+- name: add ssh key for ansible user to Arista device
+  hosts: arista
+  gather_facts: false
+  connection: network_cli
+  become: yes
+  become_method: enable
+  tasks:
+    - eos_config:
+        lines:  username ansible sshkey ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCW7OmoV8AjZiJzTIRRqGAIX1JBh6ERELhMSCmte9iC3Nsl+62oM2fcccjmKuJadrsVjpTu1b5dcEYL0zd1bS9npgCJ/QMwYhmrE/tza+amW2qQuOi51eKQI4hkBXUdJmv9xOiapQ7QX0dvz2zfHB78cWHfzXtckeXmtVwmFrL9GKXVkx7PAic0Zg1hDOzh+OgiSf4KWnZbXmKru/TF+IkiRyeiWpc4vArpusdJkKdWNh1oKxFj6zlSBkNXApihB3o8sF8b7zkEvLOiWItuT0WyJdu3nB21GY+dCBUCENaLr7x2NS11DHLVDYc6XkbMhZjYwKwEy7EeYnK+wMUTUSS5 ansible@xy1-ubu03  
+
+- name: configure netconf on Junos devices
+  hosts: junos
+  gather_facts: false
+  connection: network_cli
+  vars:
+    ansible_command_timeout: 45
+  tasks:
+    - name: configure netconf on Junos devices
+      junos_netconf:
+        state: present
+- name: Add ssh key for ansible user to Junos devices
+  hosts: junos
+  gather_facts: false
+  connection: netconf
+  vars:
+    ansible_command_timeout: 45
+  tasks:
+    - junos_config:
+        line: set interfaces fxp0 description management
+#        line: set system login user ansible authentication ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCW7OmoV8AjZiJzTIRRqGAIX1JBh6ERELhMSCmte9iC3Nsl+62oM2fcccjmKuJadrsVjpTu1b5dcEYL0zd1bS9npgCJ/QMwYhmrE/tza+amW2qQuOi51eKQI4hkBXUdJmv9xOiapQ7QX0dvz2zfHB78cWHfzXtckeXmtVwmFrL9GKXVkx7PAic0Zg1hDOzh+OgiSf4KWnZbXmKru/TF+IkiRyeiWpc4vArpusdJkKdWNh1oKxFj6zlSBkNXApihB3o8sF8b7zkEvLOiWItuT0WyJdu3nB21GY+dCBUCENaLr7x2NS11DHLVDYc6XkbMhZjYwKwEy7EeYnK+wMUTUSS5 ansible@xy1-ubu03

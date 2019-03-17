@@ -1,0 +1,8 @@
+---
+- name: debug host vars
+  hosts: C1-DC1-FW01
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - debug: var=vars
+      delegate_to: localhost
