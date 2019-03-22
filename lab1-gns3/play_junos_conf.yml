@@ -1,0 +1,10 @@
+---
+- name: Add ssh key for ansible user to Junos devices
+  hosts: junos
+  gather_facts: false
+  connection: netconf
+  vars:
+    ansible_command_timeout: 45
+  tasks:
+    - junos_config:
+        lines: set interfaces fxp0 description management
