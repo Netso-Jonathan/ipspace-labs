@@ -18,6 +18,8 @@ Each switch has two physical uplink to one Distribution switch using LACP
 
 Network os for the Distribution and Core will are vEOS and Access switches are vIOS-L2
 
+All switch use the Vlan 6 as management vlan. The core switch is use to route the Vlan 6 to my Homelab network. 
+
 ### Goals
 One of the main goal for this cours will be to create a ZTP environment to migrate Cisco access switch to Juniper EX switches (yes i changed my mind after the ZTP presention from Patrick Ogenstad :-) ).
 
