@@ -19,9 +19,9 @@ Each switch has two physical uplink to one Distribution switch using LACP
 Network os for the Distribution and Core will are vEOS and Access switches are vIOS-L2
 
 ### Goals
-One of the main goal for this cours will be to create a ZTP environment to migrate Cisco access switch to Juniper EX switches (yes i changed my mind after the ZTP presention from Patrick Ogenstad).
+One of the main goal for this cours will be to create a ZTP environment to migrate Cisco access switch to Juniper EX switches (yes i changed my mind after the ZTP presention from Patrick Ogenstad :-) ).
 
-### Play-book and scripts in this directory
+### Playbook and scripts in this directory
 I've created a python script (gns3_inv.py) that fetch the consol port information from GNS3 server via API call and build an Ansible host inventory file using a jinja2 template with the consol port informationj and assign an ansible_host ip. 
 
 After I have the ansible-playbook play_basic_mgm_config.yml that use telnet and configure the basic management configuration that will allow ansible to connect via SSH.  
