@@ -2,7 +2,8 @@
 
 ## Short description
 This lab simulate 1 compagny with 2 hub site and 4 branches. 1 vEOS switch is simultating the internet to connect hub and branches. There is a direct link between the 2 DC.
-The focus of this lab is the Juniper SRXs. Arista is use to simulate the other parts of the networks (no previous experience with Arista). 
+My goal in this cours is to improve my automation skill on Junos SRX. 
+The focus of this first lab is to be able to setup a big GNS3 LAB with Juniper SRX and Arista quickly. To do so, I did a python script to get the GNS3 information and build a hosts inventory for Ansible. Once the hosts inventory is created, I use an ansible playbook. Arista is use to simulate the other parts of the networks (no previous experience with Arista). 
 
 This document explain the view of what will look like the LAB at the end of this cours.
 The goal of the first exercise will be explain in the Exercices section

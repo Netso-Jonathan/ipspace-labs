@@ -1,0 +1,47 @@
+[arista]
+C1-CAMAS01-DSW01 ansible_host=10.0.32.20 console_ip=10.0.8.10 console_port=5006
+C1-CAMAS01-DSW02 ansible_host=10.0.32.21 console_ip=10.0.8.10 console_port=5008
+C1-CAMAS01-CSW01 ansible_host=10.0.32.22 console_ip=10.0.8.10 console_port=5010
+
+[junos]
+  
+
+[cisco_ios]
+C1-CAMAS01-ASW02 ansible_host=10.0.32.23 console_ip=10.0.8.10 console_port=5000
+C1-CAMAS01-ASW03 ansible_host=10.0.32.24 console_ip=10.0.8.10 console_port=5002
+C1-CAMAS01-ASW01 ansible_host=10.0.32.25 console_ip=10.0.8.10 console_port=5004
+C1-CAMAS01-ASW04 ansible_host=10.0.32.26 console_ip=10.0.8.10 console_port=5013
+C1-CAMAS01-ASW05 ansible_host=10.0.32.27 console_ip=10.0.8.10 console_port=5015
+C1-CAMAS01-ASW06 ansible_host=10.0.32.28 console_ip=10.0.8.10 console_port=5017
+  
+[core]
+C1-CAMAS01-CSW01
+
+[distribution]
+C1-CAMAS01-DSW01
+C1-CAMAS01-DSW02
+
+[access]
+C1-CAMAS01-ASW02
+C1-CAMAS01-ASW03
+C1-CAMAS01-ASW01
+C1-CAMAS01-ASW04
+C1-CAMAS01-ASW05
+C1-CAMAS01-ASW06
+
+
+[arista:vars]
+ansible_network_os=eos
+
+[junos:vars]
+ansible_network_os=junos
+ansible_connect_timeout=240
+ansible_command_timeout=230
+
+[cisco_ios:vars]
+ansible_network_os=ios
+ansible_connect_timeout=240
+ansible_command_timeout=230
+
+[all:vars]
+gtw=10.0.32.1

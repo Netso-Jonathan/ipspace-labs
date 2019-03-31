@@ -1,0 +1,33 @@
+---
+main: cuuai-mdf-wd01
+change:
+  id: "CHG000XXX-CUUA"
+  title: Internet upgrade at Chiuahua
+devices:
+  spab-doris-mdf-wd01:
+    ip: 
+      st0.0: 192.168.161.65
+      st0.1: 192.168.161.43
+      gr_2: 10.126.0.177
+      new: new-ip
+    ipsec:
+      proxy-id:
+        local: 70.54.226.42/32
+  space-mtl-wd01:
+    ip:
+      st0.22: 192.168.161.166
+  space-bfs-wd01:
+    ip:
+      st0.33: 192.168.161.182
+  doris-mdf-es01:
+    vlans:
+      internet:
+        id: 998
+  zscaler:
+    ip:
+      dallas_pub: 104.129.200.36
+      toronto_pub: 165.225.36.36
+      washington_pub: 104.129.194.36
+      toronto_priv: 10.126.0.10
+      washington_priv: 10.126.0.14
+

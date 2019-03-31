@@ -1,10 +1,9 @@
----
 [arista]
 C1-DC1-R1 ansible_host=10.0.8.100 console_ip=10.0.8.10 console_port=5002
 C1-DC1-R2 ansible_host=10.0.8.101 console_ip=10.0.8.10 console_port=5006
 C1-DC2-R1 ansible_host=10.0.8.102 console_ip=10.0.8.10 console_port=5012
 C1-DC2-R2 ansible_host=10.0.8.103 console_ip=10.0.8.10 console_port=5014
-C1-DC1-R3 ansible_host=10.0.8.104 console_ip=10.0.8.10 console_port=5021
+C1-DC1-R3 ansible_host=10.0.8.104 console_ip=10.0.8.10 console_port=5016
 C1-DC2-R3 ansible_host=10.0.8.105 console_ip=10.0.8.10 console_port=5026
 C1-BR-R1 ansible_host=10.0.8.106 console_ip=10.0.8.10 console_port=5030
 C1-BR-R2 ansible_host=10.0.8.107 console_ip=10.0.8.10 console_port=5040
@@ -25,8 +24,9 @@ ansible_network_os=eos
 
 [junos:vars]
 ansible_network_os=junos
-ansible_command_timeout=30
-ansible_connect_timeout=60
+ansible_command_timeout=230
+ansible_connect_timeout=240
+;timeout=240
 
 [all:vars]
 gtw=10.0.8.1

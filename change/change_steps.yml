@@ -1,0 +1,46 @@
+---
+steps:
+  - name: verification before change
+    impact: none
+    actions:
+      type: commands
+      hosts:
+        - name: spab-doris-mdf-wd01
+          commands: 
+            - "!verification of the ipsec tunnel and default route"
+            - show security ipsec security-associations
+            - show route 0.0.0.0/0
+            - "! ping ipsec peer private ip"
+            - ping {{ devices['space-mtl-wd01']['ip']['st0.52']}}
+            - ping {{ devices['space-bfs-wd01']['ip']['st0.18']}} 
+            - "! Check Zscaler status"
+            - show services rpm history-results | match zscaler
+            - ping {{ devices.zscaler.ip.toronto_priv}} source {{devices['spab-doris-mdf-wd01']['ip']['gr_2']}}
+            - ping {{ devices.zscaler.ip.washington_priv}} source {{devices['spab-doris-mdf-wd01']['ip']['gr_1']}}
+
+  - name: Add new ip address as a secondary IP for internet interface.
+    impact: none
+    actions:
+      type: commands
+      hosts:
+        - name: spab-doris-mdf-wd01
+          commands:
+            - set interface ge-0/0/4.0 familiy inet *{{devices['spab-doris-mdf-wd01']['ip']['new']}}*
+        - name: doris-mdf-es01
+          commands:
+            - config terminal
+            - " interface Gi1/0/44"
+            - "  description New internet access"   
+            - "  switchport access vlan {{ devices['doris-mdf-es01']['vlans']['internet']['id'] }}"
+            - "  speed 100"
+            - "  duplex full"
+            - "  no ip access-group user-port-block in"
+        - name: spab-doris-mdf-wd01
+          commands: 
+            - "! ping public IP address of IPSec Peer from the new IP"
+            - ping {{ devices['space-mtl-wd01']['ip']}}
+  - name: New task
+    impact: I don't know
+    actions:
+      type: standby
+    

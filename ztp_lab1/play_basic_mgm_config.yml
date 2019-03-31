@@ -1,0 +1,109 @@
+---
+- name: Basic Arista configuration
+  hosts: arista
+  gather_facts: false
+  connection: local
+  tasks:
+    - telnet:
+        user: admin
+        host: "{{console_ip}}"
+        port: "{{console_port}}"
+        login_prompt: ""
+        prompts:
+          - "[>|#|login:]"
+        command:
+          - term length 0
+          - enable
+          - configure terminal
+          - hostname {{inventory_hostname}}
+          - vrf definition management
+          - exit
+          - interface management1
+          - vrf forwarding management 
+          - ip address {{ansible_host}}/24
+          - ip route vrf management 0.0.0.0/0 {{gtw}}
+          - username ansible privilege 15 secret sha512 $6$MuHyC/Jz0MqZC1p9$rSi66zNYhQvQ6B3gkjPTbb6A3eudoE.sUntdbw3AQEXCtwf7oy2GXMze1GjGMaj9/3sSenj.9FLcfRH60PVPN/
+          - end
+          - write memory
+          - exit
+- name: Basic Junos configuration
+  hosts: junos
+  gather_facts: false
+  connection: local
+  tasks:
+    - telnet:
+        user: root
+        host: "{{console_ip}}"
+        port: "{{console_port}}"
+        login_prompt: ""
+        prompts:
+          - "[>|#|%]"
+        command:
+          - cli
+          - configure
+          - set system root-authentication encrypted-password "$5$/OTSOkvR$IJljQoBgZ0yyALn.W89hgMvKcg/xDiFem3TLeIPd1K5"
+          - set system login user ansible authentication encrypted-password "$5$5q5Z4txU$XVTdvfgpKbDMt4JU0tfXpvy5wXFoNpYPha5wOCAJDTC"
+          - set system login user ansible class super-user
+          - set system host-name {{inventory_hostname}}
+          - set interfaces fxp0 unit 0 family inet address {{ansible_host}}/24
+          - set routing-options static route 0.0.0.0/0 next-hop {{gtw}}
+          - commit and-quit
+          - exit
+
+- name: Basic Cisco Access switch
+  hosts: access
+  gather_facts: false
+  connection: local
+  tasks:
+    - telnet:
+        host: "{{console_ip}}"
+        port: "{{console_port}}"
+        send_newline: Yes
+        login_prompt: ""
+        prompts:
+          - "[>|#|:|?]"
+        command:
+          - " "
+          - enable
+          - configure terminal
+          - no ip domain-lookup
+          - hostname {{inventory_hostname}}
+          - ip domain name netso
+#          - crypto key generate rsa
+#          - "1024"
+          - ip ssh version 2
+          - username ansible privilege 15 secret 5 $1$8qlw$UBfo4B7A.i.PR0XZbJP5k1
+          - line vty 0 4
+          - transport input ssh
+          - login local
+          - ip ssh pubkey-chain 
+          - username ansible
+          - key-string
+          - AAAAB3NzaC1yc2EAAAADAQABAAABAQCW7OmoV8AjZiJzTIRRqGAIX1JBh6ERELhM
+          - SCmte9iC3Nsl+62oM2fcccjmKuJadrsVjpTu1b5dcEYL0zd1bS9npgCJ/QMwYhmrE/tza+am
+          - W2qQuOi51eKQI4hkBXUdJmv9xOiapQ7QX0dvz2zfHB78cWHfzXtckeXmtVwmFrL9GKXVkx7P
+          - Aic0Zg1hDOzh+OgiSf4KWnZbXmKru/TF+IkiRyeiWpc4vArpusdJkKdWNh1oKxFj6zlSBkNX
+          - ApihB3o8sF8b7zkEvLOiWItuT0WyJdu3nB21GY+dCBUCENaLr7x2NS11DHLVDYc6XkbMhZjY
+          - wKwEy7EeYnK+wMUTUSS5
+          - exit
+          - exit
+          - vlan 6
+          - name management
+          - exit
+          - interface vlan 6
+          - no shut
+          - ip address {{ ansible_host }} 255.255.255.0
+          - exit
+          - ip route 0.0.0.0 0.0.0.0 10.0.32.1
+          - lldp run
+          - spanning-tree mode mst
+          - interface gigabitEthernet 0/0
+          - switchport trunk encapsulation dot1q
+          - switchport trunk allowed vlan all
+          - switchport mode trunk
+          - switchport nonegotiate 
+          - end
+          - copy run start
+          - ""
+          - exit
+

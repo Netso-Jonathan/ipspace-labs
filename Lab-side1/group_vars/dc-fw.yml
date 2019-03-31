@@ -1,0 +1,6 @@
+---
+security_zones:
+  - name: LAN_USER
+    hit:
+      sys_serv:
+        - ping

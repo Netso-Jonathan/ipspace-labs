@@ -1,0 +1,14 @@
+res = requests.get('http://10.0.8.10:3080/v2/projects', auth=('jonathan', password))
+a = res.json()
+lab_list= []
+for line in a:
+  print(line['name'])
+  lab_list.append(line['name'])
+  
+  for key, value in line.items():
+    print(key)
+
+res = requests.get(api_call, auth=('jonathan', password))
+b = res.json()
+
+http://10.0.8.10:3080/v2/projects/a08ea215-6343-4bd9-b81d-ffe7963dc7f1/nodes'

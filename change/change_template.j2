@@ -1,0 +1,23 @@
+#jinja2: lstrip_blocks: "True"
+{# This is basic configuration change template #}
+# Change {{ change.id }} - {{ change.title }}
+{# #}
+{% for step in steps %}
+### {{ loop.index }} - {{step.name}}
+impact: {{ step.impact }}  
+
+{% if step.actions.type == 'commands' %}
+{%-   for host in step.actions.hosts -%}
+__{{ host.name }}__  
+```
+{%    for command in host.commands -%}
+{% if command.startswith("!") %}
+
+{% endif %}
+{{ command }}  
+{%     endfor %}
+```
+{%   endfor %}
+{% endif %}
+
+{% endfor %}

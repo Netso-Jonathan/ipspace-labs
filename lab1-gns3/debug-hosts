@@ -1,0 +1,9 @@
+[junos]
+C1-BR02-FW01 ansible_host=10.0.8.114 console_ip=10.0.8.11 console_port=5002
+C1-BR03-FW01 ansible_host=10.0.8.115 console_ip=10.0.8.11 console_port=5001
+
+[junos:vars]
+ansible_network_os=junos
+ansible_command_timeout=180
+ansible_connect_timeout=300
+timeout=250

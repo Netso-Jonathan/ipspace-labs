@@ -1,0 +1,33 @@
+---
+change:
+  id: "CHG000XXX"
+  title: Internet upgrade at Isabey
+devices:
+  spab-doris-mdf-wd01:
+    ip: 
+      st0.0: 192.168.161.65
+      st0.1: 192.168.161.43
+      gr_1: 10.126.0.13
+      gr_2: 10.126.0.9
+      new: new-ip
+    ipsec:
+      proxy-id:
+        local: 70.54.226.42/32
+  space-mtl-wd01:
+    ip:
+      st0.52: 192.168.161.64
+      pub:
+  space-bfs-wd01:
+    ip:
+      st0.18: 192.168.161.42
+  doris-mdf-es01:
+    vlans:
+      internet:
+        id: 998
+  zscaler:
+    ip:
+      toronto_pub: 165.225.36.36
+      washington_pub: 104.129.194.36
+      toronto_priv: 10.126.0.10
+      washington_priv: 10.126.0.14
+

@@ -2,9 +2,9 @@
 Generating an Ansible Inventory from the GNS3 API output 
 #}
 {% macro host_info(name,count,console_ip,console_port) %}
-{{name}} ansible_host={{ "10.0.8.%s"|format(count.0)}} console_ip={{console_ip}} console_port={{console_port}}
+{{name}} ansible_host={{ "10.0.32.%s"|format(count.0)}} console_ip={{console_ip}} console_port={{console_port}}
 {% endmacro %}
-{% set count = [99] %}
+{% set count = [19] %}
 [arista]
 {% for node in config %}
   {%- if 'vEOS' in node.properties.hda_disk_image %}
@@ -21,6 +21,14 @@ Generating an Ansible Inventory from the GNS3 API output
   {%- endif %}
 {% endfor %}  
 
+[cisco_ios]
+{% for node in config %}
+  {%- if 'vios_l2' in node.properties.hda_disk_image -%}
+  {%- if count.append(count.pop() + 1) %}{% endif %}{#ugly method to count only matches.. -#}
+{{host_info(node.name,count,node.console_host,node.console)}}
+  {%- endif %}
+{% endfor %}  
+
 [arista:vars]
 ansible_network_os=eos
 
@@ -29,5 +37,8 @@ ansible_network_os=junos
 ansible_connect_timeout=240
 ansible_command_timeout=230
 
+[cisco_ios]
+ansible_network_os=ios
+
 [all:vars]
-gtw=10.0.8.1
+gtw=10.0.32.1

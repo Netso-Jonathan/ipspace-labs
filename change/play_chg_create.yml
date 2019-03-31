@@ -1,0 +1,12 @@
+---
+- name: Generating a configuration change document
+  connection: local
+  hosts: spab-doris-mdf-wd01
+  tasks:
+    - include_vars: 
+        file: vars.yml
+    - include_vars: 
+        file: change_steps.yml
+    - template:
+        src: change_template.j2
+        dest: change_{{change.id}}.md

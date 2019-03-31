@@ -1,5 +1,5 @@
 ---
-- name: test login to Arista
+- name: Basic Arista configuration
   hosts: arista
   gather_facts: false
   connection: local
@@ -16,9 +16,12 @@
           - enable
           - configure terminal
           - hostname {{inventory_hostname}}
+          - vrf definition management
+          - exit
           - interface management1
+          - vrf forwarding management 
           - ip address {{ansible_host}}/24
-          - ip route 0.0.0.0/0 {{gtw}}
+          - ip route vrf management 0.0.0.0/0 {{gtw}}
           - username ansible privilege 15 secret sha512 $6$MuHyC/Jz0MqZC1p9$rSi66zNYhQvQ6B3gkjPTbb6A3eudoE.sUntdbw3AQEXCtwf7oy2GXMze1GjGMaj9/3sSenj.9FLcfRH60PVPN/
           - end
           - write memory
@@ -41,6 +44,7 @@
           - set system root-authentication encrypted-password "$5$/OTSOkvR$IJljQoBgZ0yyALn.W89hgMvKcg/xDiFem3TLeIPd1K5"
           - set system login user ansible authentication encrypted-password "$5$5q5Z4txU$XVTdvfgpKbDMt4JU0tfXpvy5wXFoNpYPha5wOCAJDTC"
           - set system login user ansible class super-user
+          - set system host-name {{inventory_hostname}}
           - set interfaces fxp0 unit 0 family inet address {{ansible_host}}/24
           - set routing-options static route 0.0.0.0/0 next-hop {{gtw}}
           - commit and-quit
