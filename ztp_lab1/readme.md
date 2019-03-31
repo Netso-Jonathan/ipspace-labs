@@ -13,7 +13,7 @@ I've also installed netbox on this VM for future use (I hope to get some time to
 I've also share a directory with SMB that allow my to map the working directory on ubuntu with my windows laptop so I can edit all my files on my windows using VSC. 
 
 ### Network Topology
-I start with a Basic 3-tier architecture  with one core-switch (C1-CAMAS01-CSW01), 2 Distribution switch (C1-CAMAS01-DSW01&2) with 6 access switches (C1-CAMAS01-ASW01-6). Each distribution has 3 access switch connected and only one uplink two the core. 
+I've started with a Basic 3-tier architecture  with one core-switch (C1-CAMAS01-CSW01), 2 Distribution switch (C1-CAMAS01-DSW01&2) with 6 access switches (C1-CAMAS01-ASW01-6). Each distribution has 3 access switch connected and only one uplink two the core. 
 Each switch has two physical uplink to one Distribution switch using LACP
 
 Network os for the Distribution and Core will are vEOS and Access switches are vIOS-L2
